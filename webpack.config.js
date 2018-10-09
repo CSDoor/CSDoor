@@ -1,16 +1,18 @@
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   target: 'web',
+  mode: 'development',
   entry: path.resolve(__dirname, './src/index.js'),
   output: {
-    path: path.resolve(__dirname, './build'),
+    path: path.resolve(__dirname, './public'),
     filename: 'webpack-bundle.js',
-    publicPath: 'build'
+    publicPath: 'public'
   },
   devServer: {
-    publicPath: '/build'
+    publicPath: '/public'
   },
   module: {
     rules: [
@@ -33,5 +35,8 @@ module.exports = {
         loaders: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
+  },
+  optimization: {
+    minimizer: [new UglifyJsPlugin()]
   }
 }
