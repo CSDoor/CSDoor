@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SelectField, MenuItem, TextField, RadioButtonGroup, RadioButton } from 'material-ui';
+import { SelectField, MenuItem, TextField, RadioButtonGroup, RadioButton, RaisedButton } from 'material-ui';
 export default class Filter extends Component {
   constructor(props) {
     super(props);
@@ -63,7 +63,15 @@ export default class Filter extends Component {
     })
   }
 
-  handleSubmit() {}
+  handleSubmit() {
+    fetch('http://localhost:8080/public/filter', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: {
+
+      }
+    })
+  }
 
   render() {
     return (
@@ -71,7 +79,7 @@ export default class Filter extends Component {
         <form>
           <input placeholder='Company'/>
           <div>
-            <RadioButtonGroup onChange={this.handleType}>
+            <RadioButtonGroup name='type' onChange={this.handleType}>
               <RadioButton 
                 value='algorithm'
                 label='Algorithm' />
