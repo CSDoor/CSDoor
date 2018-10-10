@@ -28,6 +28,11 @@ body {
 
 #post-container {
   background-color: $color-primary-2;
+  width: 100%; 
   display: flex;
-  flex-direction: row;
+}
+
+#interview-container {
+  background-color: $color-primary-2;
+  display: flex;
 }
