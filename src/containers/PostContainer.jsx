@@ -29,7 +29,7 @@ export default class Feed extends Component {
   }
   render() {
     return (
-      <div className="feed">
+      <div id="post-container">
         {posts}
       </div>
     )
