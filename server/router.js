@@ -48,8 +48,10 @@ OIDS=FALSE
 
 module.exports = function(app){
   app.get('/getInterview', (req, res) => {
-    db.query('SELECT * from table1', (err, result) => {
-      console.log(result.rows)
+    db.query('SELECT * from interview2', (err, result) => {
+      if (err) return res.status(500).json({ error: '1 Internal Server Error'});
+      console.log('inside query', result.rows)
+      res.status(200).send(result.rows);
     })
   })
 
