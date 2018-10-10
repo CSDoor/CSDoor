@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
 
-export default class OptionsContainer extends Component {
+class OptionsContainer extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <div id="options-container">
-        <input placeholder='company'></input>
+        <div>
+          <input id='test'></input>
+        </div>
       </div>
     )
   }
 }
+
+export default OptionsContainer; 
