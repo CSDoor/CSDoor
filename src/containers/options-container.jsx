@@ -1,16 +1,10 @@
 import React, { Component } from 'react'
-
-class OptionsContainer extends Component {
-  constructor(props) {
-    super(props)
-  }
-
+import Filter from '../components/Filter.jsx';
+export default class OptionsContainer extends Component {
   render() {
     return (
       <div id="options-container">
-        <div>
-          <input id='test'></input>
-        </div>
+        <Filter />
       </div>
     )
   }
