@@ -9,5 +9,3 @@ export default class OptionsContainer extends Component {
     )
   }
 }
-
-export default OptionsContainer; 
