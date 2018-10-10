@@ -8,12 +8,10 @@ class NavBar extends Component {
   render() {
     return (
       <div id="navbar">
-        <h1>CSDoor</h1>
-        <FlatButton 
-          label="Post Interview" 
-          primary={true} 
-          onClick={this.props.handleAddInterview}
-        />
+        <h1>CSDoors</h1>
+        <button value='post' onClick={this.props.handleApp}>Post</button>
+        <button value='home' onClick={this.props.handleApp}>Home</button>
+        <button value='profile'>Profile</button>
       </div>
     )
   }

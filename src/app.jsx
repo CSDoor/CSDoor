@@ -10,14 +10,17 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      addInterview: false
+      addInterview: false,
+      app: 'view'
     }
-    this.handleAddInterview = this.handleAddInterview.bind(this); 
+    this.handleApp = this.handleApp.bind(this); 
+    // this.handleAddInterview = this.handleAddInterview.bind(this); 
     this.handleCloseAddInterview = this.handleCloseAddInterview.bind(this); 
   }
 
-  handleAddInterview(){
-    this.setState({addInterview: true})
+  handleApp(event){
+    // let appChange = { app: event.target.value }
+    this.setState({app: event.target.value})
   }
 
   handleCloseAddInterview(){
@@ -27,32 +30,33 @@ class App extends Component {
 
   render() {
     // // by default show the interviews
-    // let app = (
-    //   <div id="app-container">
-    //     <OptionsContainer />
-    //     <InterviewContainer />
-    //   </div>
-    // )
-    // // if user clicks "post" button, render post interview page
-    // if (this.state.app === 'post') {
-    //   app = (
-    //     <div id="app-container">
-    //       <PostContainer />
-    //     </div>
-    //   )
-    // }
+    let app = (
+      <div id="home-container">
+        <OptionsContainer />
+        <InterviewContainer />
+      </div>
+    )
+    // if user clicks "post" button, render post interview page
+    if (this.state.app === 'post') {
+      app = (
+        <div id="post-container">
+          <AddInterview app={this.state.app}/>
+        </div>
+      )
+    }
 
     return (
       <div className="App">
-        <NavBar handleAddInterview={this.handleAddInterview}/>
-        <div id="app-container">
+        <NavBar handleApp={this.handleApp}/>
+        {app}
+        {/* <div id="app-container">
           <OptionsContainer />
           <InterviewContainer />
-        </div>
-        <AddInterview 
+        </div> */}
+        {/* <AddInterview 
           addInterview={this.state.addInterview}
           handleCloseAddInterview={this.handleCloseAddInterview}
-        />
+        /> */}
       </div>
     )
   }
