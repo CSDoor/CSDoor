@@ -7,6 +7,7 @@ client.connect((err, db) => {
   if (err) {
     return console.log('could not connect to postgres', err)
   }
+  console.log('connected to db');
 });
 
 module.exports = client;
