@@ -5,7 +5,7 @@ module.exports = function(app){
     db.query('SELECT * from interview2', (err, result) => {
       if (err) return res.status(500).json({ error: '1 Internal Server Error'});
       console.log('inside query', result.rows)
-      res.status(200).send(result.rows);
+      res.json(result.rows);
     })
   })
 
@@ -65,5 +65,6 @@ module.exports = function(app){
       console.log(result.rows);
     })
   })
+
 }
 
