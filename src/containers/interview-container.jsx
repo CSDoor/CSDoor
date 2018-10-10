@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import Post from './../components/Post.jsx'
-
-
-
+import Post from '../components/post.jsx'
 
 const posts = [];
 export default class Feed extends Component {
@@ -21,7 +18,7 @@ export default class Feed extends Component {
   }
   render() {
     return (
-      <div id="post-container">
+      <div id="interview-container">
         {posts}
       </div>
     )

@@ -4,7 +4,7 @@ export default class OptionsContainer extends Component {
   render() {
     return (
       <div id="options-container">
-        hasldjfalsdjf
+        <input placeholder='company'></input>
       </div>
     )
   }
