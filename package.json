@@ -5,15 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/server.js",
+    "start": "nodemon server/server.js --ignore 'public/*.js'",
     "build": "webpack-dev-server -d --watch --hot --display-error-details",
     "webpack": "webpack",
-    "dev": "concurrently \"npm start\" \"npm run build\""
-  },
-  "proxy": {
-    "/api/*": {
-      "target": "http://localhost:5000"
-    }
+    "dev": "concurrently \"npm start\" \"npm run webpack\""
   },
   "author": "",
   "license": "ISC",
