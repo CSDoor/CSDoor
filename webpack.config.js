@@ -13,9 +13,9 @@ module.exports = {
   },
   devServer: {
     // publicPath: '/public',
-    proxy: {
-      '/': 'http://localhost:3000'
-    }
+    // proxy: {
+    //   '/': 'http://localhost:3000'
+    // }
   },
   module: {
     rules: [
