@@ -61,9 +61,7 @@ module.exports = function(app){
     }
     postCompany();
   })
-
   
-
   // filter function with get request
   app.post('/filter', (req, res) => {
     // dummy data
