@@ -3,19 +3,19 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  target: 'web',
   mode: 'development',
   entry: path.resolve(__dirname, './src/index.js'),
   output: {
     path: path.resolve(__dirname, './public'),
     filename: 'webpack-bundle.js',
-    publicPath: 'public'
+    publicPath: '/public'
   },
   devServer: {
-    // publicPath: '/public',
-    // proxy: {
-    //   '/': 'http://localhost:3000'
-    // }
+    proxy: {
+      '^/api/*': {
+        target: 'http://localhost:5000',
+      }
+    }
   },
   module: {
     rules: [
