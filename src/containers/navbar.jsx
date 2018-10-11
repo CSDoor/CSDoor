@@ -8,10 +8,14 @@ class NavBar extends Component {
   render() {
     return (
       <div id="navbar">
-        <h1>CSDoors</h1>
-        <button value='post' onClick={this.props.handleApp}>Post</button>
-        <button value='home' onClick={this.props.handleApp}>Home</button>
-        <button value='profile'>Profile</button>
+        <div id="nav-title">
+          <h1>CSDoor</h1>
+        </div>
+        <div id='nav-buttons'>
+          <button className='nav-button' value='post' onClick={this.props.handleApp}>Post</button>
+          <button className='nav-button' value='home' onClick={this.props.handleApp}>Home</button>
+          {/* <button value='profile'>Profile</button> */}
+        </div>
       </div>
     )
   }

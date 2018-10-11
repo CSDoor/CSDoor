@@ -16,7 +16,7 @@ CREATE TABLE "Interviewquestion" (
   "question"  varchar  NOT NULL  UNIQUE,
   "difficulty"  integer  NOT NULL,
   "createdBy"  integer NOT NULL,
-  "date"  date  NOT NULL,
+  "date"  varchar  NOT NULL,
   "language"  varchar  NOT NULL,
   CONSTRAINT Interviewquestion_pk PRIMARY KEY ("id")
 ) WITH (
@@ -36,7 +36,7 @@ OIDS=FALSE
 
 CREATE TABLE "Company" (
   "id"  serial  UNIQUE,
-  "name"  varchar NOT NULL,
+  "name"  varchar UNIQUE NOT NULL,
   CONSTRAINT Company_pk PRIMARY KEY ("id")
 ) WITH (
 OIDS=FALSE

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { SelectField, MenuItem, TextField, RadioButtonGroup, RadioButton, RaisedButton } from 'material-ui';
 export default class Filter extends Component {
   constructor(props) {
@@ -49,9 +50,9 @@ export default class Filter extends Component {
   }
 
   handleDate(event) {
-    let obj = {};
-    obj[event.target.name] = event.target.value;
-    this.setState(obj);
+    let difficulty = {};
+    difficulty[event.target.name] = event.target.value;
+    this.setState(difficulty);
   }
 
   handleLanguages(event, index, value) {
@@ -76,29 +77,23 @@ export default class Filter extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const data = {
-      company: this.state.company,
-      type: this.state.type,
-      difficulty: this.state.difficulty,
-      language: this.state.language,
-      date: this.state.date,
-      order: this.state.order,
-      sort: this.state.sort
-    }
-    console.log('hellooo');
-    console.log(data);
+    // const data = {
+    //   company: this.state.company,
+    //   type: this.state.type,
+    //   difficulty: this.state.difficulty,
+    //   language: this.state.language,
+    //   date: this.state.date,
+    //   order: this.state.order,
+    //   sort: this.state.sort
+    // }
+    // console.log('hellooo');
+    // console.log(data);
 
+    const data = this.state;
 
-    fetch('/filter', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then (response => response.json())
-      .then (data => console.log(data))
-      .catch (err => console.log(err))
+    axios.post('/filter', data)
+      .then(response => console.log('hiiiiii???', response.data))
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -109,10 +104,10 @@ export default class Filter extends Component {
           <div>
             <RadioButtonGroup name='type' onChange={this.handleType}>
               <RadioButton 
-                value={'algorithm'}
+                value={'Algorithm'}
                 label='Algorithm' />
               <RadioButton
-                value={'system design'}
+                value={'System Design'}
                 label='System Design' />
             </RadioButtonGroup>
           </div>
