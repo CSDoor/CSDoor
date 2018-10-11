@@ -1,4 +1,8 @@
 function autocomplete(inp, arr) {
+  // autocomplete in this app is being used with React. When autocomplete is called, it was
+  // bound with "this". We need to keep track of "this" within an event listener.
+  // this is due to the event listener's "this" referencing the html element being listened to
+  const that = this; 
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
   var currentFocus;
@@ -30,6 +34,8 @@ function autocomplete(inp, arr) {
           b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
               inp.value = this.getElementsByTagName("input")[0].value;
+              // that represents the component "add-interview"
+              that.setState({company: inp.value});
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
@@ -95,4 +101,4 @@ function autocomplete(inp, arr) {
   });
 }
 
-export default autocomplete;
+export default autocomplete
