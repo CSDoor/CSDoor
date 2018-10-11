@@ -6,7 +6,7 @@ module.exports = function(app){
   })
 
   app.post('/addInterview', (req, res) => {
-    console.log('add');
+    console.log('addSTUF');
     const dateStamp = Date.now(); 
     let companyId = -1; 
 
@@ -30,13 +30,22 @@ module.exports = function(app){
       })
       // wait for companyId to resolve before proceeding.
       companyId = await findCompanyId;
-      console.log('made')
       // define query to add an interview
-      const insertStatement = `INSERT INTO Interviewquestion (companyId, type, question, difficulty, createdBy, date, language)`;
+      let insertStatement = `INSERT INTO "Interviewquestion" ("companyId", type, question, difficulty, "createdBy", date, language)`;
+      console.log(companyId);
+      // console.log(req.body); 
       
+      insertStatement += `VALUES ('${companyId}', '${req.body.type}', '${req.body.question}', '${req.body.difficulty}', '${req.body.createdBy}', '${dateStamp}', '${req.body.language}')`
+      insertStatement += `RETURNING "companyId", type, question, difficulty, "createdBy", date, language`
+      console.log('this is insertStatement', insertStatement)
+      db.query(insertStatement)
+        .then(result => console.log('this is result', result.rows))
+        .catch(err => console.log('this is err: ', err)) 
     }
     postCompany();
   })
+
+  
 
   // filter function with get request
   app.get('/filter', (req, res) => {
