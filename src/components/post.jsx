@@ -53,7 +53,7 @@ export default class Post extends React.Component {
             <ListItem primaryText={'Type: ' + interview.type} />
             <ListItem primaryText={'Created By: ' + interview.createdBy}/>
             <ListItem
-              primaryText={'Date: ' + interview.date}
+              primaryText={'Date: ' + Date(interview.date)}
               initiallyOpen={true}
               primaryTogglesNestedList={true}
               nestedItems={[
