@@ -13,7 +13,7 @@
 // }
 
 import React from 'react';
-import MobileTearSheet from './MobileTearSheet.jsx';
+// import MobileTearSheet from './MobileTearSheet.jsx';
 import {List, ListItem} from 'material-ui/List';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
@@ -47,37 +47,37 @@ export default class Post extends React.Component {
   render() {
     const { interview } = this.props;
     return (
-        <MobileTearSheet>
+      <div className='post-container'>
           <List>
             <Subheader>{interview.question}</Subheader>
             <ListItem primaryText={'Type: ' + interview.type} />
             <ListItem primaryText={'Created By: ' + interview.createdBy}/>
             <ListItem
-              primaryText={'Date: ' + interview.date}
+              primaryText={'Date: ' + Date(interview.date)}
               initiallyOpen={true}
               primaryTogglesNestedList={true}
               nestedItems={[
                 <ListItem
-                  key={1}
-                  primaryText="Solutions"
-                  disabled={true}
-                  nestedItems={[
-                    <ListItem key={1} primaryText="This is how I would approach it: ..." />,
-                  ]}
+                key={1}
+                primaryText="Solutions"
+                disabled={true}
+                nestedItems={[
+                  <ListItem key={1} primaryText="This is how I would approach it: ..." />,
+                ]}
                 />,
                 <ListItem
-                  key={2}
-                  primaryText="Comments"
-                  open={this.state.open}
-                  onNestedListToggle={this.handleNestedListToggle}
-                  nestedItems={[
-                    <ListItem key={1} primaryText="Bien hecho." />,
-                  ]}
+                key={2}
+                primaryText="Comments"
+                open={this.state.open}
+                onNestedListToggle={this.handleNestedListToggle}
+                nestedItems={[
+                  <ListItem key={1} primaryText="Bien hecho." />,
+                ]}
                 />,
               ]}
-            />
+              />
           </List>
-        </MobileTearSheet>
+      </div>
     );
   }
 }

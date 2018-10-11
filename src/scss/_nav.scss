@@ -1,0 +1,34 @@
+#navbar {
+  width: 100%;
+  height: 50px;
+  background-color: $color-primary-0;
+  display: flex; 
+  align-items: Center; 
+}
+
+#nav-title {
+  width: 50%; 
+  display: flex; 
+  justify-items: flex-start; 
+  margin: 0px 20px; 
+  color: white; 
+}
+
+#nav-buttons {
+  display: flex;
+  justify-content: flex-end; 
+  margin: 0px 15px; 
+  width: 50%; 
+}
+
+.nav-button{
+  border: 1px solid transparent; 
+  background: $color-primary-0;
+  color: white; 
+  font-size: 16px; 
+  padding: 15px; 
+}
+
+.nav-button:hover{
+  background-color: dodgerblue; 
+}
