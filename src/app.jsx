@@ -14,20 +14,12 @@ class App extends Component {
       app: 'view'
     }
     this.handleApp = this.handleApp.bind(this); 
-    // this.handleAddInterview = this.handleAddInterview.bind(this); 
-    this.handleCloseAddInterview = this.handleCloseAddInterview.bind(this); 
   }
 
   handleApp(event){
-    // let appChange = { app: event.target.value }
     this.setState({app: event.target.value})
-  }
-
-  handleCloseAddInterview(){
-    console.log('close'); 
-    this.setState({addInterview: false})
-  }
-
+  };
+  
   render() {
     // // by default show the interviews
     let app = (
@@ -49,14 +41,6 @@ class App extends Component {
       <div className="App">
         <NavBar handleApp={this.handleApp}/>
         {app}
-        {/* <div id="app-container">
-          <OptionsContainer />
-          <InterviewContainer />
-        </div> */}
-        {/* <AddInterview 
-          addInterview={this.state.addInterview}
-          handleCloseAddInterview={this.handleCloseAddInterview}
-        /> */}
       </div>
     )
   }

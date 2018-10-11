@@ -2,14 +2,40 @@ const db = require('./models/database.js')
 
 module.exports = function(app){
   app.get('/getInterview', (req, res) => {
-    db.query('SELECT * from interview2', (err, result) => {
-      if (err) return res.status(500).json({ error: '1 Internal Server Error'});
-      console.log('inside query', result.rows)
-      res.json(result.rows);
-    })
+    console.log('hi')
   })
 
   app.post('/addInterview', (req, res) => {
+    console.log('add');
+    const dateStamp = Date.now(); 
+    let companyId = -1; 
+
+    async function postCompany() {
+      // Promise so company Id is found before adding an interview
+      findCompanyId = new Promise(resolve => {
+        db.query(`SELECT id FROM "Company" WHERE name = '${req.body.company}'`)
+          .then(result => {
+          if (result.rows.length < 1) {
+            const addCompany = `INSERT INTO "Company" (name) VALUES ('${req.body.company}') RETURNING id;`;
+            db.query(addCompany)
+              .then(result => {
+                resolve(result.rows[0].id)
+              })
+              .catch(err => console.log('this is error', err)) 
+          }
+          else {
+            resolve(result.rows[0].id)
+          }
+        })
+      })
+      // wait for companyId to resolve before proceeding.
+      companyId = await findCompanyId;
+      console.log('made')
+      // define query to add an interview
+      const insertStatement = `INSERT INTO Interviewquestion (companyId, type, question, difficulty, createdBy, date, language)`;
+      
+    }
+    postCompany();
   })
 
   // filter function with get request
