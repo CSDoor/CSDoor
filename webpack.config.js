@@ -33,7 +33,7 @@ module.exports = {
         loader: 'file-loader'
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         exclude: /node_modules/,
         loaders: ['style-loader', 'css-loader', 'sass-loader']
       }

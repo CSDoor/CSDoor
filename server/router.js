@@ -7,10 +7,50 @@ module.exports = function(app){
       console.log('inside query', result.rows)
       res.json(result.rows);
     })
+    console.log('hi')
   })
 
   app.post('/addInterview', (req, res) => {
+    console.log('addSTUF');
+    const dateStamp = Date.now(); 
+    let companyId = -1; 
+
+    async function postCompany() {
+      // Promise so company Id is found before adding an interview
+      findCompanyId = new Promise(resolve => {
+        db.query(`SELECT id FROM "Company" WHERE name = '${req.body.company}'`)
+          .then(result => {
+          if (result.rows.length < 1) {
+            const addCompany = `INSERT INTO "Company" (name) VALUES ('${req.body.company}') RETURNING id;`;
+            db.query(addCompany)
+              .then(result => {
+                resolve(result.rows[0].id)
+              })
+              .catch(err => console.log('this is error', err)) 
+          }
+          else {
+            resolve(result.rows[0].id)
+          }
+        })
+      })
+      // wait for companyId to resolve before proceeding.
+      companyId = await findCompanyId;
+      // define query to add an interview
+      let insertStatement = `INSERT INTO "Interviewquestion" ("companyId", type, question, difficulty, "createdBy", date, language)`;
+      console.log(companyId);
+      // console.log(req.body); 
+      
+      insertStatement += `VALUES ('${companyId}', '${req.body.type}', '${req.body.question}', '${req.body.difficulty}', '${req.body.createdBy}', '${dateStamp}', '${req.body.language}')`
+      insertStatement += `RETURNING "companyId", type, question, difficulty, "createdBy", date, language`
+      console.log('this is insertStatement', insertStatement)
+      db.query(insertStatement)
+        .then(result => console.log('this is result', result.rows))
+        .catch(err => console.log('this is err: ', err)) 
+    }
+    postCompany();
   })
+
+  
 
   // filter function with get request
   app.get('/filter', (req, res) => {

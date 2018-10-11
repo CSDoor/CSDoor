@@ -59,23 +59,19 @@ export default class Post extends React.Component {
               nestedItems={[
                 <ListItem
                   key={1}
-                  primaryText="Starred"
-                />,
-                <ListItem
-                  key={2}
-                  primaryText={interview.type}
+                  primaryText="Solutions"
                   disabled={true}
                   nestedItems={[
-                    <ListItem key={1} primaryText="Drafts" leftIcon={<ContentDrafts />} />,
+                    <ListItem key={1} primaryText="This is how I would approach it: ..." />,
                   ]}
                 />,
                 <ListItem
-                  key={3}
-                  primaryText="Inbox"
+                  key={2}
+                  primaryText="Comments"
                   open={this.state.open}
                   onNestedListToggle={this.handleNestedListToggle}
                   nestedItems={[
-                    <ListItem key={1} primaryText="Drafts" leftIcon={<ContentDrafts />} />,
+                    <ListItem key={1} primaryText="Bien hecho." />,
                   ]}
                 />,
               ]}

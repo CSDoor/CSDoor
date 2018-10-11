@@ -11,11 +11,6 @@
     "dev": "concurrently \"npm start\" \"npm run webpack\" \"npm run build\"",
     "devs": "webpack-dev-server"
   },
-  "proxy": {
-    "/api/*": {
-      "target": "http://localhost:5000"
-    }
-  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -39,6 +34,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "create-react-class": "^15.6.3",
