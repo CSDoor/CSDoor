@@ -2,23 +2,19 @@ const db = require('./models/database.js')
 
 module.exports = function(app){
   app.get('/getCompanies', (req, res) => {
-    console.log('hi buddy')
     const query = `SELECT name FROM "Company"`
     db.query(query)
       .then(companyNames => {
-        console.log(companyNames);
-        console.log('rows', companyNames.rows);
         res.json(companyNames.rows);
       })
   })
 
   app.get('/getInterview', (req, res) => {
-    console.log('hi')
+    console.log('get interviews')
     res.end(); 
   })
 
   app.post('/addInterview', (req, res) => {
-    console.log('addSTUF');
     const dateStamp = Date.now(); 
     let companyId = -1; 
     let addedCompany = ''; 
