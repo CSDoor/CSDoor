@@ -12,6 +12,9 @@
   display: flex;
   height: calc(100vh - 50px);
   background: $color-background;
+  justify-content: flex-start;
+  // align-items: center;
+  flex-direction: row;
 }
 
 
@@ -29,5 +32,10 @@
 #interview-container {
   background-color: $color-primary-2;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 40vh;
+  width: 100vw;
 }
 

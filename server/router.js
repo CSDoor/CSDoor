@@ -2,7 +2,7 @@ const db = require('./models/database.js')
 
 module.exports = function(app){
   app.get('/getInterview', (req, res) => {
-    db.query('SELECT * from interview2', (err, result) => {
+    db.query('SELECT * from "Interviewquestion"', (err, result) => {
       if (err) return res.status(500).json({ error: '1 Internal Server Error'});
       console.log('inside query', result.rows)
       res.json(result.rows);
