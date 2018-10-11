@@ -36,7 +36,7 @@ OIDS=FALSE
 
 CREATE TABLE "Company" (
   "id"  serial  UNIQUE,
-  "name"  varchar NOT NULL,
+  "name"  varchar UNIQUE NOT NULL,
   CONSTRAINT Company_pk PRIMARY KEY ("id")
 ) WITH (
 OIDS=FALSE

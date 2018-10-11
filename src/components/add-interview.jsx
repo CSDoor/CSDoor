@@ -1,35 +1,68 @@
 import React from 'react';
-import autocomplete from '../autocomplete/autocomplete.js'
-
-// styling
-import Dialog from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
-
-const modalStyle = {
-  width: '90vw',
-  height: '90vh',
-  maxWidth: 'none',
-  maxHeight: 'none'
-};
+import autocomplete from '../autocomplete/autocomplete.js';
+import axios from 'axios';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 class AddInterview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      company: '',
       createdBy: '',
       type: '',
-      difficulty: '',
+      difficulty: -1,
       language: '',
       question: '',
       countries: ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"]
     }
-    this.handleChange = this.handleChange.bind(this); 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleAddInterview = this.handleAddInterview.bind(this);  
+  }
+
+  handleAddInterview(e) {
+    e.preventDefault(); 
+    // define variables for entry verification 
+    const companyLength = this.state.company.length;
+    const createdByLength = this.state.createdBy.length;
+    const typeLength = this.state.type.length;
+    const diffculty = this.state.diffculty;
+    const languageLength = this.state.language.length;
+    const questionLength = this.state.question.length;
+    console.log('created length', createdByLength)
+
+    // check for all fields being entered
+    if (companyLength > 0 && createdByLength > 0 && typeLength > 0, diffculty >= 0, languageLength > 0, questionLength > 0) {
+      const resetState = {
+        company: '',
+        createdBy: '',
+        type: '',
+        difficulty: '',
+        language: '',
+        question: ''
+      }
+      const interview = this.state
+      axios.post('/addInterview', interview).then(response => {
+        console.log('in the axios post, this is response.data', response.data)
+      })
+      console.log('state before deleting', this.state); 
+      this.setState(resetState); 
+    } else {
+      console.log('fill out the form!')
+    }
   }
 
   handleChange(event, value) {
+    console.log('WHY')
     let obj = {}
-    obj[event.target.name] = event.target.value; 
-    console.log(this.state); 
+    // if radio button was selected
+    if (value) {
+      obj.type = value; 
+    } 
+    // input was entered
+    else {
+      obj[event.target.name] = event.target.value; 
+    }
+    console.log(obj)
     this.setState(obj)
   }
 
@@ -40,47 +73,63 @@ class AddInterview extends React.Component {
   render() {
     return (
       <div id='add-interview-container'>
-        <h2>Post Interview</h2>
-        <form id='interview-form'>
+        <h2>Post Interview!</h2>
+        <form id='interview-form' onSubmit={this.handleAddInterview}>
           <div className='autocomplete-input-container'>
             <input
+              value={this.state.company}
               name='company' 
               id='select-company' 
               placeholder='company'
               onChange={this.handleChange}
             ></input>
           </div>
+
           <input 
+            value={this.state.createdBy}
             name="createdBy" 
             placeholder="Created By"
             onChange={this.handleChange}
           >
           </input>
+
           <input 
-            name="question" 
-            placeholder="Type of Question"
-            onChange={this.handleChange}
-          >
-          </input>
-          <input 
+            value={this.state.difficulty}
             name="difficulty" 
             placeholder="Question Difficulty"
             onChange={this.handleChange}
           >
           </input>
+
           <input 
+            value={this.state.language}
             name="language" 
             placeholder="Programming Language"
             onChange={this.handleChange}
           >
           </input>
+
+          <RadioButtonGroup onChange={this.handleChange}>
+            <RadioButton
+              label="System Design"
+              value="System Design"
+            />
+            <RadioButton
+              label="Algorithm"
+              value="Algorithm"
+            />
+          </RadioButtonGroup>
+
           <input 
+            value={this.state.question}
             id='post-question'
             name="question" 
             placeholder="Question"
             onChange={this.handleChange}
           >
           </input>
+          
+          <input type="submit" value="submit"/>
         </form>
       </div>
     );
