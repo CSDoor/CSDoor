@@ -11,10 +11,10 @@ require('dotenv').config();
 
 // parse cookies and body
 app.use(expressSession({
-secret: 'linkinOauth',
-resave: false,
-saveUninitialized: true,
-cookie: { secure: false }
+  secret: 'linkinOauth',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
 }));
 
 //LINKINED IN OAUTH
@@ -59,25 +59,24 @@ app.get('/linkedInOauth', passport.authenticate('linkedin',  {
 app.get('/error', (req, res, next) => {
     console.log('ERROR');
     console.log(req.user);
-    res.send('hi')
+    res.send('error')
 });
 
-app.get('/success', (req, res, next) => {
-    console.log('SUCCESS');
-    console.log(req.user);
-    res.send('hi')
-})
+app.use('/success', express.static(path.join(__dirname, '../public')))
 
 app.get('/test', (req, res, next) => {
     console.log('ERROR');
     console.log(req.user);
-    res.send('hi')
+    res.send('test')
 })
 
 // serve static files
 //app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(passport.authorize('linkedin', { failureRedirect: '/account' }), express.static(path.join(__dirname, '../public')));
+app.get('/', passport.authorize('linkedin', { failureRedirect: '/account' }), (req,res) => {
+    res.send(path.join(__dirname, '../public/index.html'))
+})
+app.use(express.static(path.join(__dirname, '../public')));
 
 // route get and post requests to router
 router(app);
