@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { SelectField, MenuItem, TextField, RadioButtonGroup, RadioButton, RaisedButton } from 'material-ui';
 export default class Filter extends Component {
   constructor(props) {
@@ -9,14 +10,15 @@ export default class Filter extends Component {
       type: '',
       difficulty: {
         min: 0,
-        max: 100
+        max: 10
       },
       date: {
         startDate: '',
         endDate: ''
       },
-      languages: '',
-      sort: ''
+      language: '',
+      sort: '',
+      order: ''
     }
 
     this.handleCompany = this.handleCompany.bind(this);
@@ -25,6 +27,8 @@ export default class Filter extends Component {
     this.handleDate = this.handleDate.bind(this);
     this.handleLanguages = this.handleLanguages.bind(this);
     this.handleSort = this.handleSort.bind(this);
+    this.handleOrder = this.handleOrder.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleCompany(event) {
@@ -33,9 +37,9 @@ export default class Filter extends Component {
     })
   }
 
-  handleType(event, index, value) {
+  handleType(event) {
     this.setState({
-      type: value
+      type: event.target.value
     })
   }
 
@@ -46,14 +50,15 @@ export default class Filter extends Component {
   }
 
   handleDate(event) {
-    let obj = {};
-    obj[event.target.name] = event.target.valiue;
-    this.setState(obj);
+    let difficulty = {};
+    difficulty[event.target.name] = event.target.value;
+    this.setState(difficulty);
   }
 
   handleLanguages(event, index, value) {
+    console.log('menu item?', value);
     this.setState({
-      languages: value
+      language: value
     })
   }
 
@@ -63,37 +68,55 @@ export default class Filter extends Component {
     })
   }
 
-  handleSubmit() {
-    fetch('http://localhost:8080/public/filter', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: {
-
-      }
+  handleOrder(event) {
+    console.log('value here?', event.target.value)
+    this.setState({
+      order: event.target.value
     })
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    // const data = {
+    //   company: this.state.company,
+    //   type: this.state.type,
+    //   difficulty: this.state.difficulty,
+    //   language: this.state.language,
+    //   date: this.state.date,
+    //   order: this.state.order,
+    //   sort: this.state.sort
+    // }
+    // console.log('hellooo');
+    // console.log(data);
+
+    const data = this.state;
+
+    axios.post('/filter', data)
+      .then(response => console.log('hiiiiii???', response.data))
+      .catch(err => console.log(err));
   }
 
   render() {
     return (
       <div className='column'>
-        <form>
-          <input placeholder='Company'/>
+        <form onSubmit={this.handleSubmit}>
+          <input name='company' onChange={this.handleCompany} placeholder='Company'/>
           <div>
             <RadioButtonGroup name='type' onChange={this.handleType}>
               <RadioButton 
-                value='algorithm'
+                value={'Algorithm'}
                 label='Algorithm' />
               <RadioButton
-                value='system design'
+                value={'System Design'}
                 label='System Design' />
             </RadioButtonGroup>
           </div>
           <div>
             <label>Difficulty:</label>
             <div>
-              <label>Min: <input name='min' onChange={this.handleDifficulty} placeholder='0' value='0' /></label>
+              <label>Min: <input name='min' onChange={this.handleDifficulty} placeholder='0' /></label>
               <br/>
-              <label>Max: <input name='max' onChange={this.handleDifficulty} placholder='100' value='100' /></label>
+              <label>Max: <input name='max' onChange={this.handleDifficulty} placholder='10' /></label>
             </div>
           </div>
           <div>
@@ -107,7 +130,7 @@ export default class Filter extends Component {
           <div>
             <SelectField 
                 floatingLabelText='Languages'
-                value={this.state.languages}
+                value={this.state.language}
                 onChange={this.handleLanguages}>
               <MenuItem value={''} primaryText='' />
               <MenuItem value={'c++'} primaryText='C++' />
@@ -131,6 +154,14 @@ export default class Filter extends Component {
               <MenuItem value={'difficulty'} primaryText='Difficulty' />
             </SelectField>
           </div>
+          <RadioButtonGroup name='order' onChange={this.handleOrder}>
+              <RadioButton 
+                value={'ASC'}
+                label='Ascending' />
+              <RadioButton
+                value={'DESC'}
+                label='Descending' />
+            </RadioButtonGroup>
           <RaisedButton type='submit' label='SUBMIT' primary={true} />
         </form>
       </div>
