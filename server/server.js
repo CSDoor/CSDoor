@@ -36,13 +36,13 @@ passport.deserializeUser(function(id, done) {
 passport.use('linkedin', new LinkedInStrategy({
     clientID: process.env.LINKEDIN_KEY,
     clientSecret: process.env.LINKEDIN_SECRET,
-    callbackURL: "http://localhost:3000/linkedInOauth",
+    callbackURL: "http://localhost:5000/linkedInOauth",
     scope: ['r_emailaddress', 'r_basicprofile']
   }, function(accessToken, refreshToken, profile, done) {
     //asynchronous verification, for effect...
     process.nextTick(function () {
       //HANDLE DATA CREATION
-      //console.log("PROFILE", profile)
+      console.log("PROFILE", profile)
       //REGISTER IN DB
       return done(null, profile);
     });
