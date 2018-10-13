@@ -12,17 +12,13 @@
   background-color: white;
   width: 100%; 
   display: flex;
-  box-shadow: 5px 5px 10px;
+  box-shadow: 3px 3px 10px;
   margin: 20px;
   width: 85%;
 }
 
 #interview-container {
   background-color: $color-background;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // flex-direction: column;
   height: 100%; 
   width: 100vw;
   overflow: scroll; 

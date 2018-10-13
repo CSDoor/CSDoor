@@ -40,50 +40,55 @@ passport.use('linkedin', new LinkedInStrategy({
     scope: ['r_emailaddress', 'r_basicprofile']
   }, function(accessToken, refreshToken, profile, done) {
     //asynchronous verification, for effect...
-    process.nextTick(function () {
       //HANDLE DATA CREATION
-      console.log("PROFILE", profile)
+      console.log('positions', profile._json.positions); 
+      const user = {
+          id: profile.id,
+          name: profile.displayName,
+          cohort: 23,
+          companyId: '',
+          jobTitle: profile._json.headline
+      }
+      console.log("user", user)
       //REGISTER IN DB
       return done(null, profile);
-    });
   }));
 
 app.get('/auth/linkedin',
   passport.authenticate('linkedin'));
 
 app.get('/linkedInOauth', passport.authenticate('linkedin',  {
-    successRedirect:'/success',
+    successRedirect:'/home',
     failureRedirect:'/error'
 }));
 
 app.get('/error', (req, res, next) => {
-    console.log('ERROR');
-    console.log(req.user);
-    res.send('error')
+  console.log('ERROR');
+  console.log(req.user);
+  res.send('error')
 });
 
-app.use('/success', express.static(path.join(__dirname, '../public')))
-
 app.get('/test', (req, res, next) => {
-    console.log('ERROR');
-    console.log(req.user);
-    res.send('test')
+  console.log('ERROR');
+  console.log(req.user);
+  res.send('test')
 })
+
+app.get('/logout', function (req, res){
+  req.session.destroy(function (err) {
+    res.redirect('/'); //Inside a callback… bulletproof!
+  });
+});
 
 // serve static files
 //app.use(bodyParser.json());
 app.use(cookieParser());
-app.get('/', passport.authorize('linkedin', { failureRedirect: '/account' }), (req,res) => {
-    res.send(path.join(__dirname, '../public/index.html'))
-})
 app.use(express.static(path.join(__dirname, '../public')));
+app.use('/home', express.static(path.join(__dirname, '../public')))
+
 
 // route get and post requests to router
 router(app);
-
-app.use(function(err, req, res, next) {
-    console.error(err);
-})
 
 // create port
 const PORT = 5000; 
