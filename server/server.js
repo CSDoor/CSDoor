@@ -81,7 +81,7 @@ app.get('/logout', function (req, res){
 });
 
 // serve static files
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/home', express.static(path.join(__dirname, '../public')))

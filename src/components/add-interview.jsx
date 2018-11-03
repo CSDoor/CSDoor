@@ -66,6 +66,7 @@ class AddInterview extends React.Component {
         question: ''
       }
       const interview = this.state
+      console.log('whats interview?', interview);
       axios.post('/addInterview', interview)
         .then(response => {
           // if a company was added, add to autocomplete
