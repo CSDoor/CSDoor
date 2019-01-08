@@ -3,13 +3,11 @@ import autocomplete from '../autocomplete/autocomplete.js';
 import axios from 'axios';
 
 // material ui
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-const radioStyle = {
-  display: 'flex'
-}
+const radioStyle = { display: 'flex' }
 
 class AddInterview extends React.Component {
   constructor(props) {
@@ -22,12 +20,12 @@ class AddInterview extends React.Component {
       language: '',
       question: '',
       companies: [],
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
-    this.handleAddInterview = this.handleAddInterview.bind(this); 
-    this.handleLanguages = this.handleLanguages.bind(this); 
-    this.fetchCompanies = this.fetchCompanies.bind(this); 
-    this.autocomplete = autocomplete.bind(this); 
+    this.handleAddInterview = this.handleAddInterview.bind(this);
+    this.handleLanguages = this.handleLanguages.bind(this);
+    this.fetchCompanies = this.fetchCompanies.bind(this);
+    this.autocomplete = autocomplete.bind(this);
   }
 
   fetchCompanies() {
@@ -46,7 +44,7 @@ class AddInterview extends React.Component {
   }
 
   handleAddInterview(e) {
-    e.preventDefault(); 
+    e.preventDefault();
     // define variables for entry verification 
     const companyLength = this.state.company.length;
     const createdByLength = this.state.createdBy.length;
