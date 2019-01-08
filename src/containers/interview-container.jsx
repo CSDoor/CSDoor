@@ -5,24 +5,27 @@ export default class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts : []
-    }
+      posts: [],
+    };
   }
-  componentDidMount() {
-    fetch('/getInterview')
-    .then(response => response.json())
-    .then((data) => {
-      console.log('data fetched:', data);
-      this.setState({posts: data})
-      //posts.push(<Post interview={data[i].question} key={i}/>)
-    })
-    .catch(err => {
-      console.log(err)
-    })
 
+  componentDidMount() {
+    // fetch('/getInterview')
+    // .then(response => response.json())
+    // .then((data) => {
+    //   console.log('data fetched:', data);
+    //   this.setState({posts: data})
+    //   //posts.push(<Post interview={data[i].question} key={i}/>)
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    // })
+    fetch('https://swapi.co/api/people/')
+      .then(response => response.json())
+      .then(myJson => console.log(JSON.stringify(myJson)));
   }
+
   render() {
-    console.log('this state posts', this.state.posts);
     const posts = [];
     if (this.state.posts.length > 0) {
       this.state.posts.forEach((post, i) => {
