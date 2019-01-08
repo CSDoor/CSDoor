@@ -45,13 +45,15 @@ class AddInterview extends React.Component {
 
   handleAddInterview(e) {
     e.preventDefault();
-    // define variables for entry verification 
-    const companyLength = this.state.company.length;
-    const createdByLength = this.state.createdBy.length;
-    const typeLength = this.state.type.length;
-    const diffculty = this.state.diffculty;
-    const languageLength = this.state.language.length;
-    const questionLength = this.state.question.length;
+    // define variables for entry verification
+    const {
+      companyLength,
+      createdByLength,
+      typeLength,
+      diffculty,
+      languageLength,
+      questionLength,
+    } = this.state;
 
     // check for all fields being entered
     if (companyLength > 0 && createdByLength > 0 && typeLength > 0, diffculty >= 0, languageLength > 0, questionLength > 0) {
@@ -61,10 +63,9 @@ class AddInterview extends React.Component {
         type: '',
         difficulty: '',
         language: '',
-        question: ''
-      }
-      const interview = this.state
-      console.log('whats interview?', interview);
+        question: '',
+      };
+      const interview = this.state;
       axios.post('/addInterview', interview)
         .then(response => {
           // if a company was added, add to autocomplete
@@ -74,34 +75,34 @@ class AddInterview extends React.Component {
             this.setState({companies}); 
           }
         })
-      this.setState(resetState); 
+      this.setState(resetState);
     } else {
-      console.log('fill out the form!')
+      console.log('fill out the form!');
     }
   }
 
   handleLanguages(event, index, value) {
-    this.setState({language: value})
+    this.setState({language: value});
   }
 
   handleChange(event, value) {
-    let obj = {}
+    let obj = {};
     // if radio button was selected
     if (value) {
-      obj.type = value; 
-    } 
+      obj.type = value;
+    }
     // input was entered
     else {
-      obj[event.target.name] = event.target.value; 
+      obj[event.target.name] = event.target.value;
     }
-    this.setState(obj)
+    this.setState(obj);
   }
 
   componentDidMount() {
     this.autocomplete(document.getElementById("select-company"), this.state.companies);
-    this.fetchCompanies(); 
+    this.fetchCompanies();
   }
-  
+
   render() {
     return (
       <div id='add-interview-container'>
