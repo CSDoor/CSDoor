@@ -10,18 +10,20 @@ export default class Feed extends Component {
   }
 
   componentDidMount() {
-    fetch('https://swapi.co/api/people/')
+    fetch('/getInterview')
       .then(response => response.json())
-      .then(myJson => console.log(JSON.stringify(myJson)));
+      .then((data) => {
+        const posts = [];
+        data.forEach((post, i) => {
+          posts.push(<Post interview={post} key={i} />);
+        });
+        this.setState({ posts });
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
-    const posts = [];
-    if (this.state.posts.length > 0) {
-      this.state.posts.forEach((post, i) => {
-        posts.push(<Post interview={post} key={i}/>)
-      });
-    }
+    const { posts } = this.state;
     return (
       <div id="interview-container">
         {posts}
