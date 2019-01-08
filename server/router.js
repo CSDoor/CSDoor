@@ -18,6 +18,7 @@ module.exports = function(app){
   })
 
   app.post('/addInterview', (req, res) => {
+    console.log('req.body', req.body);
     const dateStamp = Date.now(); 
     let companyId = -1; 
     let addedCompany = ''; 
